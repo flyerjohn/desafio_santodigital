@@ -1,12 +1,12 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
 
-app = Flask(__name__) #criar o app utilizando o flask
-api = Api(app) #utilizar a api, para obter algumas facilidades do rest api
+app = Flask(__name__) # criar o app utilizando o flask
+api = Api(app) # utilizar a api, para obter algumas facilidades do rest api
 
-class Hello(Resource): #classe inicial do projeto
+class Hello(Resource): # easter egg haha
     def get(self, name):
-        return {"Hello":name}
+        return {"Hello":name} # hello (world?) pra dar sorte :)
 
 api.add_resource(Hello, '/hello/<name>')
 
@@ -49,7 +49,7 @@ def jsonJHandler():
     
     valor = textAnnotations[count+1]['description']
     print(valor)
-   
+
     return {"NFe" : nfe, "Código de Verificação" : codigo, "Valor Total" : valor}
 
 if __name__ == '__main__':
