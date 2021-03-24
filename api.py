@@ -14,10 +14,39 @@ api.add_resource(Hello, '/hello/<name>')
 def jsonJHandler():
     print(request.is_json) # retorna true se o texto recebido é um json
     content = request.get_json() # transforma o json recebido em um dicionario
-    textAnnotations = content["textAnnotations"] # buscar a parte do json que possui as anotações de texto
+    textAnnotations = {}
+    textAnnotations = content['textAnnotations'] # buscar a parte do json que possui as anotações de texto
     
-    print(textAnnotations[]) # acessando e printando um dado do dicionario
-    return 'JSON received'
+
+    count = 0 # descobrir o indice dos valores desejados na lista
+
+    for data in textAnnotations: #buscar pela nfe 
+        if data['description'] == 'Nota':
+            print("Nota encontrada")
+            break
+        count += 1
+    print(textAnnotations[count+1]['description'])
+    nfe = textAnnotations[count+1]['description']
+    count = 0 # zerar contador para proxima busca
+    for data in textAnnotations: #buscar pelo codigo de verificacao 
+        if data['description'] == 'Verificação':
+            print("Codigo encontrado")
+            break
+        count += 1
+    
+    codigo = textAnnotations[count+2]['description']
+    codigo += textAnnotations[count+3]['description'] # devido ao formato de nota de SP, o cod de verificação fica dividido por duas descrpitions
+    print(codigo)
+    count = 0 # zerar contador para proxima busca
+    for data in textAnnotations: #buscar pelo valor da nota 
+        if data['description'] == '$':
+            print("Valor encontrado")
+            break
+        count += 1
+    print(textAnnotations[count+1]['description'])
+    valor = textAnnotations[count+1]['description']
+   
+    return {"NFe" : nfe, "Código de Verificação" : codigo, "Valor Total" : valor}
 
 if __name__ == '__main__':
     app.run(debug=True)
